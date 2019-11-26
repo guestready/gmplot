@@ -225,11 +225,10 @@ class GoogleMapPlotter(object):
         shape = zip(lats, lngs)
         self.shapes.append((shape, settings))
 
-    def draw(self, htmlfile):
+    def draw(self, f):
         """Create the html file which include one google map and all points and paths. If 
         no string is provided, return the raw html.
         """
-        f = open(htmlfile, 'w')
         f.write('<html>\n')
         f.write('<head>\n')
         f.write(
