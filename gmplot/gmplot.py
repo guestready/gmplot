@@ -260,7 +260,6 @@ class GoogleMapPlotter(object):
             u'\t<div id="map_canvas" style="width: 100%; height: 100%;"></div>\n')
         f.write(u'</body>\n')
         f.write(u'</html>\n')
-        f.close()
 
     #############################################
     # # # # # # Low level Map Drawing # # # # # #
