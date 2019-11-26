@@ -229,19 +229,19 @@ class GoogleMapPlotter(object):
         """Create the html file which include one google map and all points and paths. If 
         no string is provided, return the raw html.
         """
-        f.write('<html>\n')
-        f.write('<head>\n')
+        f.write(u'<html>\n')
+        f.write(u'<head>\n')
         f.write(
-            '<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />\n')
+            u'<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />\n')
         f.write(
-            '<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>\n')
-        f.write('<title>Google Maps - gmplot </title>\n')
+            u'<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>\n')
+        f.write(u'<title>Google Maps - gmplot </title>\n')
         if self.apikey:
-            f.write('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false&key=%s"></script>\n' % self.apikey )
+            f.write(u'<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false&key=%s"></script>\n' % self.apikey )
         else:
-            f.write('<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script>\n' )
-        f.write('<script type="text/javascript">\n')
-        f.write('\tfunction initialize() {\n')
+            f.write(u'<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=visualization&sensor=true_or_false"></script>\n' )
+        f.write(u'<script type="text/javascript">\n')
+        f.write(u'\tfunction initialize() {\n')
         self.write_map(f)
         self.write_grids(f)
         self.write_points(f)
@@ -251,15 +251,15 @@ class GoogleMapPlotter(object):
         self.write_shapes(f)
         self.write_heatmap(f)
         self.write_ground_overlay(f)
-        f.write('\t}\n')
-        f.write('</script>\n')
-        f.write('</head>\n')
+        f.write(u'\t}\n')
+        f.write(u'</script>\n')
+        f.write(u'</head>\n')
         f.write(
-            '<body style="margin:0px; padding:0px;" onload="initialize()">\n')
+            u'<body style="margin:0px; padding:0px;" onload="initialize()">\n')
         f.write(
-            '\t<div id="map_canvas" style="width: 100%; height: 100%;"></div>\n')
-        f.write('</body>\n')
-        f.write('</html>\n')
+            u'\t<div id="map_canvas" style="width: 100%; height: 100%;"></div>\n')
+        f.write(u'</body>\n')
+        f.write(u'</html>\n')
         f.close()
 
     #############################################
@@ -315,29 +315,29 @@ class GoogleMapPlotter(object):
 
     # TODO: Add support for mapTypeId: google.maps.MapTypeId.SATELLITE
     def write_map(self,  f):
-        f.write('\t\tvar centerlatlng = new google.maps.LatLng(%f, %f);\n' %
+        f.write(u'\t\tvar centerlatlng = new google.maps.LatLng(%f, %f);\n' %
                 (self.center[0], self.center[1]))
-        f.write('\t\tvar myOptions = {\n')
-        f.write('\t\t\tzoom: %d,\n' % (self.zoom))
-        f.write('\t\t\tcenter: centerlatlng,\n')
-        f.write('\t\t\tmapTypeId: google.maps.MapTypeId.ROADMAP\n')
-        f.write('\t\t};\n')
+        f.write(u'\t\tvar myOptions = {\n')
+        f.write(u'\t\t\tzoom: %d,\n' % (self.zoom))
+        f.write(u'\t\t\tcenter: centerlatlng,\n')
+        f.write(u'\t\t\tmapTypeId: google.maps.MapTypeId.ROADMAP\n')
+        f.write(u'\t\t};\n')
         f.write(
             '\t\tvar map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);\n')
-        f.write('\n')
+        f.write(u'\n')
 
     def write_point(self, f, lat, lon, color, title):
-        f.write('\t\tvar latlng = new google.maps.LatLng(%f, %f);\n' %
+        f.write(u'\t\tvar latlng = new google.maps.LatLng(%f, %f);\n' %
                 (lat, lon))
-        f.write('\t\tvar img = new google.maps.MarkerImage(\'%s\');\n' %
+        f.write(u'\t\tvar img = new google.maps.MarkerImage(\'%s\');\n' %
                 (self.coloricon % color))
-        f.write('\t\tvar marker = new google.maps.Marker({\n')
-        f.write('\t\ttitle: "%s",\n' % title)
-        f.write('\t\ticon: img,\n')
-        f.write('\t\tposition: latlng\n')
-        f.write('\t\t});\n')
-        f.write('\t\tmarker.setMap(map);\n')
-        f.write('\n')
+        f.write(u'\t\tvar marker = new google.maps.Marker({\n')
+        f.write(u'\t\ttitle: "%s",\n' % title)
+        f.write(u'\t\ticon: img,\n')
+        f.write(u'\t\tposition: latlng\n')
+        f.write(u'\t\t});\n')
+        f.write(u'\t\tmarker.setMap(map);\n')
+        f.write(u'\n')
 
     def write_symbol(self, f, symbol, settings):
         strokeColor = settings.get('color') or settings.get('edge_color')
@@ -371,24 +371,24 @@ class GoogleMapPlotter(object):
         strokeOpacity = settings.get('edge_alpha')
         strokeWeight = settings.get('edge_width')
 
-        f.write('var PolylineCoordinates = [\n')
+        f.write(u'var PolylineCoordinates = [\n')
         for coordinate in path:
-            f.write('new google.maps.LatLng(%f, %f),\n' %
+            f.write(u'new google.maps.LatLng(%f, %f),\n' %
                     (coordinate[0], coordinate[1]))
-        f.write('];\n')
-        f.write('\n')
+        f.write(u'];\n')
+        f.write(u'\n')
 
-        f.write('var Path = new google.maps.Polyline({\n')
-        f.write('clickable: %s,\n' % (str(clickable).lower()))
-        f.write('geodesic: %s,\n' % (str(geodesic).lower()))
-        f.write('path: PolylineCoordinates,\n')
-        f.write('strokeColor: "%s",\n' % (strokeColor))
-        f.write('strokeOpacity: %f,\n' % (strokeOpacity))
-        f.write('strokeWeight: %d\n' % (strokeWeight))
-        f.write('});\n')
-        f.write('\n')
-        f.write('Path.setMap(map);\n')
-        f.write('\n\n')
+        f.write(u'var Path = new google.maps.Polyline({\n')
+        f.write(u'clickable: %s,\n' % (str(clickable).lower()))
+        f.write(u'geodesic: %s,\n' % (str(geodesic).lower()))
+        f.write(u'path: PolylineCoordinates,\n')
+        f.write(u'strokeColor: "%s",\n' % (strokeColor))
+        f.write(u'strokeOpacity: %f,\n' % (strokeOpacity))
+        f.write(u'strokeWeight: %d\n' % (strokeWeight))
+        f.write(u'});\n')
+        f.write(u'\n')
+        f.write(u'Path.setMap(map);\n')
+        f.write(u'\n\n')
 
     def write_polygon(self, f, path, settings):
         clickable = False
@@ -398,54 +398,54 @@ class GoogleMapPlotter(object):
         strokeWeight = settings.get('edge_width')
         fillColor = settings.get('face_color') or settings.get('color')
         fillOpacity= settings.get('face_alpha')
-        f.write('var coords = [\n')
+        f.write(u'var coords = [\n')
         for coordinate in path:
-            f.write('new google.maps.LatLng(%f, %f),\n' %
+            f.write(u'new google.maps.LatLng(%f, %f),\n' %
                     (coordinate[0], coordinate[1]))
-        f.write('];\n')
-        f.write('\n')
+        f.write(u'];\n')
+        f.write(u'\n')
 
-        f.write('var polygon = new google.maps.Polygon({\n')
-        f.write('clickable: %s,\n' % (str(clickable).lower()))
-        f.write('geodesic: %s,\n' % (str(geodesic).lower()))
-        f.write('fillColor: "%s",\n' % (fillColor))
-        f.write('fillOpacity: %f,\n' % (fillOpacity))
-        f.write('paths: coords,\n')
-        f.write('strokeColor: "%s",\n' % (strokeColor))
-        f.write('strokeOpacity: %f,\n' % (strokeOpacity))
-        f.write('strokeWeight: %d\n' % (strokeWeight))
-        f.write('});\n')
-        f.write('\n')
-        f.write('polygon.setMap(map);\n')
-        f.write('\n\n')
+        f.write(u'var polygon = new google.maps.Polygon({\n')
+        f.write(u'clickable: %s,\n' % (str(clickable).lower()))
+        f.write(u'geodesic: %s,\n' % (str(geodesic).lower()))
+        f.write(u'fillColor: "%s",\n' % (fillColor))
+        f.write(u'fillOpacity: %f,\n' % (fillOpacity))
+        f.write(u'paths: coords,\n')
+        f.write(u'strokeColor: "%s",\n' % (strokeColor))
+        f.write(u'strokeOpacity: %f,\n' % (strokeOpacity))
+        f.write(u'strokeWeight: %d\n' % (strokeWeight))
+        f.write(u'});\n')
+        f.write(u'\n')
+        f.write(u'polygon.setMap(map);\n')
+        f.write(u'\n\n')
 
     def write_heatmap(self, f):
         for heatmap_points, settings_string in self.heatmap_points:
-            f.write('var heatmap_points = [\n')
+            f.write(u'var heatmap_points = [\n')
             for heatmap_lat, heatmap_lng in heatmap_points:
-                f.write('new google.maps.LatLng(%f, %f),\n' %
+                f.write(u'new google.maps.LatLng(%f, %f),\n' %
                         (heatmap_lat, heatmap_lng))
-            f.write('];\n')
-            f.write('\n')
-            f.write('var pointArray = new google.maps.MVCArray(heatmap_points);' + '\n')
-            f.write('var heatmap;' + '\n')
-            f.write('heatmap = new google.maps.visualization.HeatmapLayer({' + '\n')
-            f.write('\n')
-            f.write('data: pointArray' + '\n')
-            f.write('});' + '\n')
-            f.write('heatmap.setMap(map);' + '\n')
+            f.write(u'];\n')
+            f.write(u'\n')
+            f.write(u'var pointArray = new google.maps.MVCArray(heatmap_points);' + '\n')
+            f.write(u'var heatmap;' + '\n')
+            f.write(u'heatmap = new google.maps.visualization.HeatmapLayer({' + '\n')
+            f.write(u'\n')
+            f.write(u'data: pointArray' + '\n')
+            f.write(u'});' + '\n')
+            f.write(u'heatmap.setMap(map);' + '\n')
             f.write(settings_string)
 
     def write_ground_overlay(self, f):
 
         for url, bounds_string in self.ground_overlays:
             f.write(bounds_string)
-            f.write('var groundOverlay;' + '\n')
-            f.write('groundOverlay = new google.maps.GroundOverlay(' + '\n')
-            f.write('\n')
+            f.write(u'var groundOverlay;' + '\n')
+            f.write(u'groundOverlay = new google.maps.GroundOverlay(' + '\n')
+            f.write(u'\n')
             f.write("'" + url + "'," + '\n')
-            f.write('imageBounds);' + '\n')
-            f.write('groundOverlay.setMap(map);' + '\n')
+            f.write(u'imageBounds);' + '\n')
+            f.write(u'groundOverlay.setMap(map);' + '\n')
 
 if __name__ == "__main__":
 
