@@ -323,7 +323,7 @@ class GoogleMapPlotter(object):
         f.write(u'\t\t\tmapTypeId: google.maps.MapTypeId.ROADMAP\n')
         f.write(u'\t\t};\n')
         f.write(
-            '\t\tvar map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);\n')
+            u'\t\tvar map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);\n')
         f.write(u'\n')
 
     def write_point(self, f, lat, lon, color, title):
